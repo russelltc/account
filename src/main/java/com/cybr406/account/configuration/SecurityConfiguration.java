@@ -64,6 +64,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         configureH2ConsoleSecurity(http);
         http.authorizeRequests()
+
+                .mvcMatchers(HttpMethod.GET,"/check-user").hasAnyRole("ADMIN","SERVICE")
                 .mvcMatchers(HttpMethod.GET, "/**").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/signup").permitAll()
                 .anyRequest().authenticated()
